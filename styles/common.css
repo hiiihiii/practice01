@@ -1,0 +1,412 @@
+/*头部导航开始*/
+.header {
+    position: fixed;
+    z-index: 1999;
+    background: #ffffff;
+    width: 100%;
+}
+.header .header-menu{
+    width: 100%;
+    height: 65px;
+    box-shadow:2px 2px 3px #d2cdcd;
+}
+.header-left {
+    float: left;
+}
+.header-left h3 {
+    color: #767b80;
+    padding-left: 20px ;
+}
+.header-center {
+    margin-left: 500px;
+    width: 400px;
+}
+.parent-menu {
+    display: inline-block;
+    margin-top: 22px;
+    margin-right: 30px;
+}
+.parent-menu:hover,
+.parent-menu-selected{
+    border-bottom: 4px solid rgb(236, 103, 11);
+    cursor: pointer;
+}
+.child-menu{
+    position: absolute;
+    background: #ffffff;
+    padding: 5px 30px 10px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    box-shadow: 0px 0px 10px #d2cdcd;
+    margin-top: 5px;
+    display: none;
+}
+.child-menu .sub-menu-group span{
+    font-size: 12px;
+    color: rgba(20, 2, 2, 0.48)
+}
+.child-menu .child-menu-title{
+    display: inline-block;
+    margin: 5px 10px;
+    color: #4a4e53;
+}
+.child-menu .sub-menu-group{
+    margin-left: 10px;
+}
+.child-menu a{
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 5px 13px;
+}
+.child-menu a:hover,
+.child-menu-selected{
+    border: 1px solid rgb(236,103,11);
+}
+.header-center .parent-menu i {
+    color: #767b80;
+}
+.parent-menu-title {
+    display: inline-block;
+}
+.header-right {
+    float: right;
+    margin-top: -20px;
+    margin-right: 30px;
+}
+/*头部导航结束*/
+/*面包屑开始*/
+.breadcrumbs {
+    float: left;
+    width: 100%;
+    height: 35px;
+    box-shadow: 0px 1px 3px rgba(34, 25, 25, 0.2);
+}
+.breadcrumbs a{
+    border-right: 1px solid rgba(34, 25, 25, 0.2);
+    margin-top: 9px;
+    padding-right: 3px;
+    font-size: 0.875em;
+}
+.breadcrumbs a:last-child{
+    border: none;
+}
+.breadcrumbs a:first-child {
+    padding-left: 22px;
+}
+/*面包屑结束*/
+
+/*左侧导航开始*/
+.content {
+    padding-top: 100px;
+    display: flex;
+}
+.content-left {
+    width: 15%;
+    height: 535px;
+    border-right: 1px solid #d2cdcd;
+    box-shadow:0px 3px 3px #d2cdcd;
+    flex: 2;
+}
+.nav:first-child{ /*第一个nav类*/
+    padding-top: 10px;
+}
+.nav a{
+    text-decoration: none;
+    font-size: 0.75em;
+    margin-left: 5px
+}
+.nav ul{
+    width: 100%;
+}
+.nav li {
+    height: 40px;
+    cursor: pointer;
+}
+li.app-type {
+    position:relative;
+}
+.nav li.repo-type:hover {
+    border-left: 4px solid rgb(236,103,11);
+}
+.repo-type-selected {
+    border-left: 4px solid rgb(236,103,11);
+    color: rgb(236,103,11);
+}
+.app-items i,
+.app-items a {
+    cursor: pointer;
+}
+.app-item-selected{
+
+}
+span.repo-icon, span.checkbox {
+    display: inline-block;
+    margin-left: 25px;
+    margin-top: 8px;
+}
+span.repo-icon+a {
+    margin-right: 80px;
+    margin-left: 10px;
+}
+span.checkbox {
+    position: relative;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border: 1px solid rgb(236,103,11);
+    margin-left: 70px !important;
+    background-color: rgb(236,103,11);
+}
+span.checkbox i{
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    color: rgb(255,255,255);
+    font-size: 14px;
+}
+span.checkbox+a{
+    width: 50px;
+    left: 88px;
+    top: 6px;
+}
+.app-type-all{
+    margin-left: -10px;
+}
+.app-type-all .checkbox,
+.app-type .checkbox{
+    margin-bottom: -2px;
+}
+.app-type {
+    margin-left: 10px;
+}
+.app-items {
+    background-color: rgba(168,170,171,0.35);
+}
+.app-type, .app-type-all{
+    padding: 10px 0px;
+}
+/*左侧导航结束*/
+
+/*右侧内容开始*/
+.content-right{
+    width: 85%;
+    height: 535px;
+    flex: 10;
+}
+.tool-box{
+    border-bottom: 1px solid rgba(0,0,0,0.11);
+    padding-left: 0;
+}
+.tool-box .operation{
+    padding: 5px 12px;
+    padding-right: 0px;
+}
+.tool-box .btn{
+    margin-right: 5px;
+}
+.app-box {
+    margin-top: 50px;
+    margin-left: 12px;
+    width: 250px;
+    height: 200px;
+    position: relative;
+    background-color: #e5eaef;
+}
+.app-box .docker {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+}
+.app-box .docker img {
+    width: 24px;
+}
+.app-box .app-name{
+    position: absolute;
+    top: 50px;
+    left: 18px;
+}
+.app-box .app-tag {
+    position: absolute;
+    left: 178px;
+    top: 10px;
+    font-size: 12px;
+}
+.app-img {
+    position: absolute;
+    left: 10px;
+    top: 90px;
+}
+.app-img img {
+    width: 80px;
+    height: 80px;
+}
+.app-box .app-desc{
+    position: absolute;
+    font-size: 12px;
+    top: 50px;
+    width: 125px;
+    height: 130px;
+    left: 113px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: normal;
+}
+/*右侧内容结束*/
+
+/*概览开始*/
+#overview {
+    display: flex;
+    padding-top: 100px;
+}
+#overview .left-content {
+    flex: 1;
+    background-color: rgb(232, 235, 238);
+}
+#overview .right-content {
+    flex: 4;
+    background-color: rgb(232, 235, 238);
+}
+#overview .flex-col {
+    display: flex;
+    flex-direction: column;
+}
+.left-top {
+    flex: 2;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.left-bottom {
+    flex: 3;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+#overview .left-top .content-box,
+#overview .left-bottom .content-box{
+    font-size: 14px;
+    background-color: rgb(255,255,255);
+    padding-top: 5px;
+    padding-left: 5px;
+}
+.content-box .box-title{
+    padding-left: 5px;
+    border-left: 4px solid rgb(130,121,114);
+}
+#overview #app-statistics{
+    height: 180px;
+    width: 272px;
+}
+.exception-list {
+    height: 313px;
+    overflow: auto;
+}
+.exception-app {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.exception-app img {
+    flex: 1;
+    height: 80px;
+    width: 80px;
+}
+.exception-app .info {
+    flex: 2;
+    padding-top: 15px;
+}
+.exception-app .info .time {
+    color: rgba(0,0,0,0.5);
+}
+/*概览结束*/
+/*上传镜像开始*/
+#upload_image_form .select2+input {
+    position: relative;
+    margin-top: -30px;
+    width: 94%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+#upload_image_form .select2-selection {
+    height: 30px;
+}
+#upload_image_form .select2-selection__arrow {
+    height: 28px;
+}
+#upload_image_form .file-input {
+    display: inline-block;
+    width: 74%;
+}
+#upload_image_form .file-input-btn {
+    opacity: 0;
+    display: inline-block;
+    width: 87px;
+}
+#upload_image_form label.cloud-btn {
+    margin-left: -90px;
+    width: 90px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+#upload_image_form .modal-body-left {
+    display: inline-block;
+    width: 135px;
+    position: absolute;
+}
+#upload_image_form .modal-body-right {
+    display: inline-block;
+    width: 375px;
+    margin-left: 165px;
+}
+#upload_image_form .info-type {
+    text-align: center;
+    box-shadow: 1px 0px 3px #dedada;
+}
+#upload_image_form .info-item-selected {
+    border-right: 4px solid #ec670b;
+    background-image: -webkit-linear-gradient(left, rgba(236, 103, 11, 0) 0%, rgba(236, 103, 11, 0.3) 100%);
+    background-image: -moz-linear-gradient(left, rgba(236, 103, 11, 0) 0%, rgba(236, 103, 11, 0.3) 100%);
+    background-image: -o-linear-gradient(left, rgba(236, 103, 11, 0) 0%, rgba(236, 103, 11, 0.3) 100%);
+    background-image: linear-gradient(left, rgba(236, 103, 11, 0) 0%, rgba(236, 103, 11, 0.3) 100%);
+    color: #ec670b;
+}
+#upload_image_form .info-item {
+    padding: 10px 0;
+    font-size: 12px;
+}
+#upload_image .modal-dialog {
+    width: 750px;
+}
+#upload_image .modal-table-operation {
+    cursor: pointer;
+    display: inline-block;
+    padding-top: 4px;
+}
+#upload_image .form-group > span,
+#upload_image .cmdParam-item .delete-cmd-btn {
+    position: absolute;
+    cursor: pointer;
+    right: -20px;
+}
+#upload_image .cmdParam-item .delete-cmd-btn {
+    bottom: 4px;
+}
+#upload_image #port_table {
+    width: 500px;
+}
+#upload_image .runtime-input {
+    width: 75%;
+    display: inline-block;
+}
+#upload_image .runtime-select {
+    width: 23%;
+    display: inline-block;
+}
+#upload_image .port-form-group {
+    width: 500px;
+}
+#upload_image .cmdParam-item {
+    position: relative;
+}
+#upload_image .cmdParam-item:not(:last-child) {
+    margin-bottom: 15px;
+}
+/*上传镜像结束*/

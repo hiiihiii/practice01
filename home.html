@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-switch.min.css"/>
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="lib/select2/css/select2.min.css"/>
+    <link rel="stylesheet" href="styles/common.css" />
+    <link rel="stylesheet" href="styles/demo-theme.css" />
+</head>
+<body>
+<!--导航-->
+<div class="header">
+    <div class="header-menu">
+        <div class="header-left">
+            <h3>容器PaaS平台</h3>
+        </div>
+        <div class="header-center">
+            <div class="parent-menu" id="overview-menu">
+                <i class="fa fa-tachometer"></i>
+                <div class="parent-menu-title">
+                    <span>概览</span>
+                </div>
+            </div>
+            <div class="parent-menu">
+                <i class="fa fa-server"></i>
+                <div class="parent-menu-title">
+                    <span>服务</span>
+                </div>
+                <div class="child-menu">
+                    <div class="sub-menu-group">
+                        <div class="sub-menu-title">
+                            <span>应用中心</span>
+                        </div>
+                        <div class="child-menu-title">
+                            <a id="appstore-menu">应用仓库</a>
+                        </div>
+                        <div class="child-menu-title">
+                            <a id="apptemplate-menu">应用编排</a>
+                        </div>
+                    </div>
+                    <div class="sub-menu-group">
+                        <div class="sub-menu-title">
+                            <span>应用管理</span>
+                        </div>
+                        <div class="child-menu-title">
+                            <a id="application-menu">应用实例</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parent-menu">
+                <i class="fa fa-briefcase "></i>
+                <div class="parent-menu-title">
+                    <span>配置</span>
+                </div>
+                <div class="child-menu">
+                    <div class="sub-menu-group">
+                        <div class="sub-menu-title">
+                            <span>系统</span>
+                        </div>
+                        <div class="child-menu-title">
+                            <a id="system-role-setting">角色</a>
+                        </div>
+                        <div class="child-menu-title">
+                            <a id="system-user-setting">用户</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parent-menu">
+                <i class="fa fa-cog"></i>
+                <div class="parent-menu-title">
+                    <span>系统参数</span>
+                </div>
+                <div class="child-menu">
+                    <div class="sub-menu-group">
+                        <div class="sub-menu-title">
+                            <span>Kubernetes</span>
+                        </div>
+                        <div class="child-menu-title">
+                            <a id="kubernetes-node">节点配置</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <i class="fa fa-user-circle-o"></i>
+            <span>admin</span>
+            <a>退出</a>
+        </div>
+    </div>
+    <div class="breadcrumbs">
+        <a >服务</a>
+        <a >应用仓库</a>
+    </div>
+</div>
+<div id="appstore">
+    <div class="content">
+        <div class="content-left">
+            <div class="nav">
+                <ul>
+                    <li class="repo-type repo-type-selected">
+                        <span class="repo-icon"><i class="fa fa-shopping-cart"></i></span>
+                        <a >公有仓库</a>
+                        <span v-cloak="" v-show="showPublic" ><i class="fa fa-angle-down"></i></span>
+                        <span v-cloak="" v-show="!showPublic"><i class="fa fa-angle-right"></i></span>
+                    </li>
+                    <div v-cloak="" class="app-items" v-show="appType == 'public'" >
+                        <div class="app-type-all app-item-selected">
+	                            <span class="checkbox">
+	                                <i class="fa fa-check"></i>
+	                            </span>
+                            <a >全部</a>
+                        </div>
+                        <div class="app-type app-item-selected">
+	                            <span class="checkbox">
+	                                <i class="fa fa-check"></i>
+	                            </span>
+                            <a >镜像应用</a>
+                        </div>
+                        <div class="app-type app-item-selected">
+	                            <span class="checkbox">
+	                                <i class="fa fa-check"></i>
+	                            </span>
+                            <a >模板应用</a>
+                        </div>
+                    </div>
+                    <li class="repo-type">
+                        <span class="repo-icon"><i class="fa fa-shopping-cart"></i></span>
+                        <a >私有仓库</a>
+                        <span v-cloak="" v-show="showPrivate"><i class="fa fa-angle-down"></i></span>
+                        <span v-cloak="" v-show="!showPrivate"><i class="fa fa-angle-right"></i></span>
+                    </li>
+                    <div v-cloak="" class="app-items" v-show="appType == 'private'">
+                        <div class="app-type-all">
+	                            <span class="checkbox">
+	                                <i class="fa fa-check"></i>
+	                            </span>
+                            <a >全部</a>
+                        </div>
+                        <div class="app-type">
+	                            <span class="checkbox">
+	                                <i class="fa fa-check"></i>
+	                            </span>
+                            <a >镜像应用</a>
+                        </div>
+                        <div class="app-type">
+	                            <span class="checkbox">
+	                                <i class="fa fa-check"></i>
+	                            </span>
+                            <a >模板应用</a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="tool-box col-lg-12">
+                <div class="col-lg-8 operation">
+                    <div class="btn cloud-btn" v-on:click="showUploadDialog"><i class="fa fa-plus"></i>上传镜像</div>
+                    <div class="btn cloud-btn">构建镜像</div>
+                    <div class="btn cloud-btn"><i class="fa fa-refresh"></i>刷新</div>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+            <div class="app-box">
+                <div class="docker">
+                    <img src="images/docker-blue.png" />
+                </div>
+                <div class="app-name">
+                    <h5>tomcat</h5>
+                </div>
+                <div class="app-tag">
+                    <span>WebServer</span>
+                </div>
+                <div class="app-img">
+                    <img src="images/tomcat.PNG" />
+                </div>
+                <div class="app-desc" title="Tomcat服务器是一个免费的开放源代码的Web应用服务器。Tomcat是Apache软件基金会（Apache Software Foundation）的Jakarta项目中的一个核心项目，由Apache、Sun和其他一些公司及个人共同开发而成。由于有了Sun的参与和支持，最新的Servlet 和JSP规范总是能在Tomcat中得到体现，Tomcat 5支持最新的Servlet 2.4和JSP 2.0规范。因为Tomcat技术先进、性能稳定，而且免费，因而深受Java爱好者的喜爱并得到了部分软件开发商的认可，是目前比较流行的Web应用服务器。">
+                    Tomcat服务器是一个免费的开放源代码的Web应用服务器。Tomcat是Apache软件基金会（Apache Software Foundation）的Jakarta项目中的一个核心项目，由Apache、Sun和其他一些公司及个人共同开发而成。由于有了Sun的参与和支持，最新的Servlet 和JSP规范总是能在Tomcat中得到体现，Tomcat 5支持最新的Servlet 2.4和JSP 2.0规范。因为Tomcat技术先进、性能稳定，而且免费，因而深受Java爱好者的喜爱并得到了部分软件开发商的认可，是目前比较流行的Web应用服务器。
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 上传窗口 -->
+<div id="upload_image_dialog">
+    <div class="modal fade" id="upload_image" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="cloud-modal-title">
+                        <i class="fa fa-plus"></i>
+                        <h4 class="modal-title">上传镜像</h4>
+                    </div>
+                </div>
+                <div class="modal-body cloud-modal-body">
+                    <form id="upload_image_form" role="form">
+                        <div class="modal-body-left">
+                            <ul class="info-type">
+                                <li class="info-item"
+                                    v-bind:class="infoTag == 'baseInfo' ? 'info-item-selected' : ''">基本信息</li>
+                                <li class="info-item"
+                                    v-bind:class="infoTag == 'configInfo' ? 'info-item-selected' : ''">配置信息</li>
+                                <li class="info-item"
+                                    v-bind:class="infoTag == 'runtimeInfo' ? 'info-item-selected' : ''">环境要求</li>
+                            </ul>
+                        </div>
+                        <div class="modal-body-right">
+                            <div class="base-info" v-show="infoTag == 'baseInfo'" v-cloak="">
+                                <!--应用名称-->
+                                <div class="form-group">
+                                    <label>名称</label>
+                                    <div>
+                                        <input type="text" class="form-control" id="appName" name="appName" placeholder="请输入名称" maxlength="64"/>
+                                    </div>
+                                </div>
+                                <!--是否公有-->
+                                <div class="form-group">
+                                    <label>是否公有</label>
+                                    <div id="isPublic" class="switch">
+                                        <input type="checkbox" class="form-control" />
+                                    </div>
+                                </div>
+                                <!--图标-->
+                                <div class="form-group">
+                                    <label>图标</label>
+                                    <div class="file-container">
+                                        <input class="form-control file-input" type="text" name="logoFileName" readonly="readonly" />
+                                        <input type="file" class="file-input-btn" name="logo"/>
+                                        <label class="btn cloud-btn"><i class="fa fa-upload"></i>选择文件</label>
+                                    </div>
+                                </div>
+                                <!--版本-->
+                                <div class="form-group">
+                                    <label >版本</label>
+                                    <div>
+                                        <input class="form-control" type="text" name="version"/>
+                                    </div>
+                                </div>
+                                <!--标签-->
+                                <div class="form-group">
+                                    <label >标签</label>
+                                    <div>
+                                        <select class="select2" name="appTag">
+                                            <option v-for="(val, key) in definedAppTag" value="key">{{key}}</option>
+                                        </select>
+                                        <input class="form-control input-select2" type="text" name="appTag_input"/>
+                                    </div>
+                                </div>
+                                <!--应用简介-->
+                                <div class="form-group">
+                                    <label >应用简介</label>
+                                    <div>
+                                        <textarea class="form-control" name="description" maxlength="100"></textarea>
+                                    </div>
+                                </div>
+                                <!--版本特性-->
+                                <div class="form-group">
+                                    <label >版本特性</label>
+                                    <div>
+                                        <textarea class="form-control" name="v_description" maxlength="1000"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="config-info" v-show="infoTag == 'configInfo'" v-cloak="">
+                                <!--源文件-->
+                                <div class="form-group">
+                                    <label>源文件</label>
+                                    <div class="file-container">
+                                        <input class="form-control file-input" type="text" name="sourceFileName" readonly="readonly" />
+                                        <input type="file" class="file-input-btn" name="sourceFile"/>
+                                        <label class="btn cloud-btn"><i class="fa fa-upload"></i>选择文件</label>
+                                    </div>
+                                </div>
+                                <!--目录映射-->
+                                <div class="form-group">
+                                    <label >目录映射</label>
+                                    <div>
+                                        <input class="form-control" type="text" name="volumeDir"/>
+                                    </div>
+                                </div>
+                                <!--运行命令-->
+                                <div class="form-group">
+                                    <label >运行命令</label>
+                                    <div>
+                                        <input class="form-control" type="text" name="cmd"/>
+                                    </div>
+                                </div>
+                                <!--命令参数-->
+                                <div class="form-group" id="cmdParam-box">
+                                    <label >命令参数</label>
+                                    <span v-on:click="addCmdParam"><i class="fa fa-plus"></i></span>
+                                    <div class="cmdParam-item">
+                                        <input class="form-control" type="text" name="cmdParam"/>
+                                    </div>
+                                    <!--<div class="cmdParam-item">-->
+                                    <!--<input class="form-control" type="text" name="cmdParam"/>-->
+                                    <!--<span class="delete-cmd-btn"><i class="fa fa-trash-o"></i></span>-->
+                                    <!--</div>-->
+                                </div>
+                                <!--环境变量-->
+                                <div class="form-group">
+                                    <label>环境变量</label>
+                                    <span v-on:click="addEnv"><i class="fa fa-plus"></i></span>
+                                    <div class="modal-table-box">
+                                        <table class="table cloud-modal-table" id="env_table">
+                                            <thead>
+                                            <tr>
+                                                <th>变量</th>
+                                                <th>值</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--端口映射-->
+                                <div class="form-group port-form-group" >
+                                    <label>端口映射</label>
+                                    <span v-on:click="addPort"><i class="fa fa-plus"></i></span>
+                                    <div class="modal-table-box">
+                                        <table class="table cloud-modal-table" id="port_table">
+                                            <thead>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th style="width: 82px;">协议</th>
+                                                <th>容器端口</th>
+                                                <th>集群内端口</th>
+                                                <th>集群外端口</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input class="form-control" type="text" id="portName0" name="portName"/></td>
+                                                <td>
+                                                    <select class="form-control" name="protocol" id="protocol0">
+                                                        <option value="TCP">TCP</option>
+                                                        <option value="UDP">UDP</option>
+                                                    </select>
+                                                </td>
+                                                <td><input class="form-control" type="text" id="containerPort0" maxlength="5" name="containerPort"/></td>
+                                                <td><input class="form-control" type="text" id="port0" maxlength="5" name="port"/></td>
+                                                <td><input class="form-control" type="text" id="targetPort0" maxlength="5" name="targetPort"/></td>
+                                                <td><!--<span class="modal-table-operation"><i class="fa fa-trash-o"></i></span>--></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="runtime-info" v-show="infoTag == 'runtimeInfo'" v-cloak="">
+                                <div class="form-group">
+                                    <label >启动限制</label>
+                                </div>
+                                <div class="form-group">
+                                    <label >CPU</label>
+                                    <div>
+                                        <input class="form-control" type="text" name="mincpu"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label >内存</label>
+                                    <div>
+                                        <input class="form-control runtime-input" type="text" name="minMemory"/>
+                                        <select class="form-control runtime-select" name="minMemoryUnit">
+                                            <option value="MB">MB</option>
+                                            <option value="GB">GB</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label >运行限制</label>
+                                </div>
+                                <div class="form-group">
+                                    <label >CPU</label>
+                                    <div>
+                                        <input class="form-control" type="text" name="maxcpu"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label >内存</label>
+                                    <div>
+                                        <input class="form-control runtime-input" type="text" name="maxMemory"/>
+                                        <select class="form-control runtime-select" name="maxMemoryUnit">
+                                            <option value="MB">MB</option>
+                                            <option value="GB">GB</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn cloud-btn" v-show="previousStep"
+                            v-on:click="toPrevious" v-cloak="">上一步</button>
+                    <button type="button" class="btn cloud-btn" v-show="nextStep"
+                            v-on:click="toNext" v-cloak="">下一步</button>
+                    <button type="button" class="btn cloud-btn" v-show="submitTag" v-cloak="">确定</button>
+                    <button type="button" class="btn cloud-btn" data-dismiss="modal" v-cloak="">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <script src="lib/requirejs/require.js" data-main="js/main"></script>
+    <script type="text/javascript">
+        require(["require-config"],function (require_config) {
+            require(["appstore", "upload_image"]);
+        });
+    </script>
+</div>
+</body>
+</html>
